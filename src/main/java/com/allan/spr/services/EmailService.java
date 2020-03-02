@@ -4,20 +4,18 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.SimpleMailMessage;
 
-import com.allan.spr.domain.Cliente;
-import com.allan.spr.domain.Pedido;
+import com.allan.spr.domain.Usuario;
 
 public interface EmailService {
-	
-	void sendOrderConfirmatioEmail(Pedido obj);
-	
+
+	void sendOrderConfirmatioEmail(String email);
+
 	void sendEmail(SimpleMailMessage msg);
-	
-	void sendOrderConfirmationHtmlEmail(Pedido obj);
-	
+
+	void sendOrderConfirmationHtmlEmail(String email);
+
 	void sendHtmlEmail(MimeMessage msg);
-	
-	void sendNewPasswordEmail(Cliente cliente, String newPass);
-	
+
+	void sendNewPasswordEmail(Usuario usuario, String newPass);
 
 }

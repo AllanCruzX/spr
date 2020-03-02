@@ -25,7 +25,7 @@ public class Endereco implements Serializable {
 	private String cep;
 
 	@Column(name = "cod_numero")
-	private Integer numero;
+	private String numero;
 
 	@Column(name = "ds_bairro")
 	private String bairro;
@@ -64,11 +64,11 @@ public class Endereco implements Serializable {
 		this.cep = cep;
 	}
 
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -121,10 +121,5 @@ public class Endereco implements Serializable {
 		return true;
 	}
 	
-	public static Endereco getInstance() {
-		Endereco endereco = new Endereco();
-		endereco.setCidade(new Cidade());
-		return endereco;
-	}
 
 }

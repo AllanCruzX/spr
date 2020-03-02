@@ -1,51 +1,48 @@
 package com.allan.spr.domain;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.allan.spr.domain.enums.TipoAtividade;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "atividade")
-public class Atividade implements Serializable{
+public class Atividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "licao")
 	private String licao;
-	
-	@Column(name = "dt_criacao")
-	private LocalDate dataCriacao;
-	
+
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+	@Column(name = "dt_cadastro")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCadastro;
+
 	@ManyToOne
-	@JoinColumn(name="proj_social_id")
+	@JoinColumn(name = "proj_social_id")
 	private ProjetoSocial projetoSocial;
-	
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "tipo")
 	private TipoAtividade tipo;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="lista_presenca_id")
-	private ListaPresenca listaPresenca;
 
 	public Long getId() {
 		return id;
@@ -61,14 +58,6 @@ public class Atividade implements Serializable{
 
 	public void setLicao(String licao) {
 		this.licao = licao;
-	}
-
-	public LocalDate getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDate dataCriacao) {
-		this.dataCriacao = dataCriacao;
 	}
 
 	public ProjetoSocial getProjetoSocial() {
@@ -87,12 +76,37 @@ public class Atividade implements Serializable{
 		this.tipo = tipo;
 	}
 
-	public ListaPresenca getListaPresenca() {
-		return listaPresenca;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setListaPresenca(ListaPresenca listaPresenca) {
-		this.listaPresenca = listaPresenca;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Atividade other = (Atividade) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 

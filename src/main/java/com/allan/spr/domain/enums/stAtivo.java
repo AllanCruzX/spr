@@ -3,7 +3,7 @@ package com.allan.spr.domain.enums;
 import java.util.Arrays;
 import java.util.List;
 
-public enum stAtivo {
+public enum StAtivo {
 	
 	ATIVO(1,"Ativo"),
 	INATIVO(2, "INATIVO");
@@ -11,7 +11,7 @@ public enum stAtivo {
 	private int cod;
 	private String descricao;
 	
-	private stAtivo(int cod, String descricao) {
+	private StAtivo(int cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
@@ -24,17 +24,17 @@ public enum stAtivo {
 		return descricao;
 	}
 	
-	public static List<stAtivo> valores() {
+	public static List<StAtivo> valores() {
 		return Arrays.asList(values());
 	}
 	
 	
-	public static stAtivo toEnum(Integer cod) {
+	public static StAtivo toEnum(Integer cod) {
 		if(cod == null) {
 			return null;
 		}
 		
-		for(stAtivo x : stAtivo.values()) {
+		for(StAtivo x : StAtivo.values()) {
 			if(cod.equals(x.getCod())) {
 				return x;
 			}

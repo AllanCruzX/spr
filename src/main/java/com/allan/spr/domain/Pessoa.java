@@ -2,12 +2,8 @@ package com.allan.spr.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,7 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.allan.spr.domain.enums.stAtivo;
+import com.allan.spr.domain.enums.StAtivo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -46,21 +42,21 @@ public class Pessoa implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataExclusao;
 	
-	@Column(unique=true , name = "email")
+	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "telefone")
+	private String telefone;
 	
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "st")
-	private stAtivo st;
+	private StAtivo st;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="endereco_id")
-	private Endereco endereco;
+	private Endereco endereco ;
 	
-	@ElementCollection
-	@CollectionTable(name = "telefone")
-	private Set<String> telefones = new HashSet<String>();
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -101,11 +97,11 @@ public class Pessoa implements Serializable{
 		this.email = email;
 	}
 
-	public stAtivo getSt() {
+	public StAtivo getSt() {
 		return st;
 	}
 
-	public void setSt(stAtivo st) {
+	public void setSt(StAtivo st) {
 		this.st = st;
 	}
 
@@ -117,13 +113,15 @@ public class Pessoa implements Serializable{
 		this.endereco = endereco;
 	}
 
-	public Set<String> getTelefones() {
-		return telefones;
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefones(Set<String> telefones) {
-		this.telefones = telefones;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {

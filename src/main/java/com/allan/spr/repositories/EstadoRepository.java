@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.allan.spr.domain.Estado;
 
 @Repository
-public interface EstadoRepository extends JpaRepository<Estado, Integer> {
+public interface EstadoRepository extends JpaRepository<Estado, Long> {
 	
 	@Transactional(readOnly=true)//Uma outra propriedade muito importante no uso de transações é o read-only, identificando que determinada transação não pode realizar operações de escrita ou alterações, apenas leitura.
 	public List<Estado> findAllByOrderByNome();

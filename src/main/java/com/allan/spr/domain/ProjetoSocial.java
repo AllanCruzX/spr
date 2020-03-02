@@ -19,6 +19,13 @@ public class ProjetoSocial extends PessoaJuridica implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 	
 
 }

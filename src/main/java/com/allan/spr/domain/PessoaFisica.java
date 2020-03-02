@@ -1,14 +1,21 @@
 package com.allan.spr.domain;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.allan.spr.domain.enums.StSimNao;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "pessoa_fisica")
@@ -29,11 +36,14 @@ public class PessoaFisica extends Pessoa implements Serializable {
 	@Column(name = "nome_responsavel")
 	private String nomeResponsavel;
 
-	@Column(name = "pne")
-	private String pne;
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "pcd")
+	private StSimNao pcd;// pessoa com deficiencia
 
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	@Column(name = "nascimento")
-	private LocalDate dataNsacimento;
+	private Date dataNsacimento;
 
 	public String getCpf() {
 		return cpf;
@@ -67,19 +77,19 @@ public class PessoaFisica extends Pessoa implements Serializable {
 		this.nomeResponsavel = nomeResponsavel;
 	}
 
-	public String getPne() {
-		return pne;
+	public StSimNao getPcd() {
+		return pcd;
 	}
 
-	public void setPne(String pne) {
-		this.pne = pne;
+	public void setPcd(StSimNao pcd) {
+		this.pcd = pcd;
 	}
 
-	public LocalDate getDataNsacimento() {
+	public Date getDataNsacimento() {
 		return dataNsacimento;
 	}
 
-	public void setDataNsacimento(LocalDate dataNsacimento) {
+	public void setDataNsacimento(Date dataNsacimento) {
 		this.dataNsacimento = dataNsacimento;
 	}
 

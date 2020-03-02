@@ -35,7 +35,7 @@ public class EstadoResource {
 	}
 	
 	@RequestMapping(value="/{estadoId}/cidades", method=RequestMethod.GET)
-	public ResponseEntity<List<CidadeDTO>> findCidades(@PathVariable Integer estadoId){
+	public ResponseEntity<List<CidadeDTO>> findCidades(@PathVariable Long estadoId){
 		List<Cidade> list = cidadeService.findCidades(estadoId);
 		List<CidadeDTO> listDto = list.stream().map(obj -> new CidadeDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);

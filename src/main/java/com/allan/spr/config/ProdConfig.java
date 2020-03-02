@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.allan.spr.services.DBService;
 import com.allan.spr.services.EmailService;
 import com.allan.spr.services.SmtpEmailService;
 
@@ -16,8 +15,7 @@ import com.allan.spr.services.SmtpEmailService;
 @Profile("prod")
 public class ProdConfig {
 	
-	@Autowired
-	private DBService dbService;
+
 	
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	private String strategy;
@@ -32,7 +30,7 @@ public class ProdConfig {
 			return false;
 		}
 		
-		dbService.instantiateTestDatabase();
+		
 		 return true;
 	}
 	

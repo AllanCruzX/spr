@@ -13,8 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.allan.spr.domain.Cliente;
-import com.allan.spr.domain.Pedido;
+import com.allan.spr.domain.Usuario;
 
 public abstract class AbstractEmailService implements EmailService {
 	
@@ -29,65 +28,65 @@ public abstract class AbstractEmailService implements EmailService {
 	
 	
 	@Override
-	public void sendOrderConfirmatioEmail(Pedido obj) {
-		SimpleMailMessage sm = prepareSimpleMailMessageFromPedido(obj);
+	public void sendOrderConfirmatioEmail(String email) {
+		SimpleMailMessage sm = prepareSimpleMailMessageFromPedido(email);
 		sendEmail(sm);
 	}
 
-	protected SimpleMailMessage prepareSimpleMailMessageFromPedido(Pedido obj) {
+	protected SimpleMailMessage prepareSimpleMailMessageFromPedido(String email) {
 		SimpleMailMessage sm = new SimpleMailMessage();
-		sm.setTo(obj.getCliente().getEmail());
+		sm.setTo(email);
 		sm.setFrom(sender);
-		sm.setSubject("Pedido confirmado! Código " + obj.getId());
+		sm.setSubject("Email enviado" );
 		sm.setSentDate(new Date(System.currentTimeMillis()));
-		sm.setText(obj.toString());
+		sm.setText(email);
 		return sm;
 	}
 	
-	protected String htmlFromTemplatePedido(Pedido obj) {
+	protected String htmlFromTemplatePedido(String email) {
 		Context context = new Context();
-		context.setVariable("pedido",obj);		
+		context.setVariable("pedido",email);		
 		return templateEngine.process("email/comfirmacaoPedido", context);
 		
 	}
 	
 	@Override
-	public void sendOrderConfirmationHtmlEmail(Pedido obj) {
+	public void sendOrderConfirmationHtmlEmail(String email) {
 		
 		try {
-			MimeMessage mm = prepareMimeMessageFromPedido(obj);
+			MimeMessage mm = prepareMimeMessageFromPedido(email);
 			sendHtmlEmail(mm);
 		} catch (MessagingException e) {
-			sendOrderConfirmatioEmail(obj);
+			sendOrderConfirmatioEmail(email);
 		}
 		
 		
 	}
 
-	private MimeMessage prepareMimeMessageFromPedido(Pedido obj) throws MessagingException {
+	private MimeMessage prepareMimeMessageFromPedido(String email) throws MessagingException {
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper mmh = new MimeMessageHelper(mimeMessage, true);
-		mmh.setTo(obj.getCliente().getEmail());
+		mmh.setTo(email);
 		mmh.setFrom(sender);
-		mmh.setSubject("Pedido confirmado! Código:" + obj.getId());
+		mmh.setSubject("Email enviado" );
 		mmh.setSentDate(new Date(System.currentTimeMillis()));
-		mmh.setText(htmlFromTemplatePedido(obj), true);
+		mmh.setText(htmlFromTemplatePedido(email), true);
 		
 		
 		return mimeMessage;
 	}
 	
 	@Override
-	public void sendNewPasswordEmail(Cliente cliente, String newPass) {
-		SimpleMailMessage sm = prepareNewPasswordEmail(cliente, newPass);
+	public void sendNewPasswordEmail(Usuario usuario, String newPass) {
+		SimpleMailMessage sm = prepareNewPasswordEmail(usuario, newPass);
 		sendEmail(sm);
 		
 	}
 
-	protected  SimpleMailMessage prepareNewPasswordEmail(Cliente cliente, String newPass) {
+	protected  SimpleMailMessage prepareNewPasswordEmail(Usuario usuario, String newPass) {
 		
 		SimpleMailMessage sm = new SimpleMailMessage();
-		sm.setTo(cliente.getEmail());
+		sm.setTo(usuario.getEmail());
 		sm.setFrom(sender);
 		sm.setSubject("Solicitação de nova senha" );
 		sm.setSentDate(new Date(System.currentTimeMillis()));

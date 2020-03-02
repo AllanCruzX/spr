@@ -14,7 +14,7 @@ public class CidadeService {
 	@Autowired
 	private CidadeRepository repo;
 
-	public List<Cidade> findCidades(Integer estado_id) {
+	public List<Cidade> findCidades(Long estado_id) {
 		return repo.findCidades(estado_id);
 
 	}
