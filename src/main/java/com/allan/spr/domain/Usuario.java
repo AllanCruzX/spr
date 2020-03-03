@@ -9,17 +9,16 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.allan.spr.domain.enums.Perfil;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.allan.spr.domain.enums.ProjetoSocial;
 
 @Entity
 @Table(name = "usuario")
@@ -34,6 +33,18 @@ public class Usuario extends PessoaFisica implements Serializable {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "perfis")
 	private Set<Integer> perfis = new HashSet<Integer>();
+	
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "projeto_social")
+	private ProjetoSocial projetoSocial;
+
+	public ProjetoSocial getProjetoSocial() {
+		return projetoSocial;
+	}
+
+	public void setProjetoSocial(ProjetoSocial projetoSocial) {
+		this.projetoSocial = projetoSocial;
+	}
 
 	public String getSenha() {
 		return senha;

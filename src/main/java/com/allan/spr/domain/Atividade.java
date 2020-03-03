@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.allan.spr.domain.enums.ProjetoSocial;
 import com.allan.spr.domain.enums.TipoAtividade;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -36,8 +37,8 @@ public class Atividade implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
 
-	@ManyToOne
-	@JoinColumn(name = "proj_social_id")
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "projeto_social")
 	private ProjetoSocial projetoSocial;
 
 	@Enumerated(EnumType.ORDINAL)
@@ -60,13 +61,7 @@ public class Atividade implements Serializable {
 		this.licao = licao;
 	}
 
-	public ProjetoSocial getProjetoSocial() {
-		return projetoSocial;
-	}
 
-	public void setProjetoSocial(ProjetoSocial projetoSocial) {
-		this.projetoSocial = projetoSocial;
-	}
 
 	public TipoAtividade getTipo() {
 		return tipo;
@@ -82,6 +77,15 @@ public class Atividade implements Serializable {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+	
+
+	public ProjetoSocial getProjetoSocial() {
+		return projetoSocial;
+	}
+
+	public void setProjetoSocial(ProjetoSocial projetoSocial) {
+		this.projetoSocial = projetoSocial;
 	}
 
 	@Override

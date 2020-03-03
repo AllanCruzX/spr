@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum StAtivo {
 	
-	ATIVO(1,"Ativo"),
+	ATIVO(1,"ATIVO"),
 	INATIVO(2, "INATIVO");
 	
 	private int cod;

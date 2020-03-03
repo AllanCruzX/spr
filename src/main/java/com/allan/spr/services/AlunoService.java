@@ -20,6 +20,7 @@ import com.allan.spr.domain.Cidade;
 import com.allan.spr.domain.Endereco;
 import com.allan.spr.domain.Usuario;
 import com.allan.spr.domain.enums.Perfil;
+import com.allan.spr.domain.enums.ProjetoSocial;
 import com.allan.spr.domain.enums.StAtivo;
 import com.allan.spr.domain.enums.StSimNao;
 import com.allan.spr.dto.AlunoDTO;
@@ -92,6 +93,7 @@ public class AlunoService {
 
 	private void preparaSave(Usuario obj) {
 		setPerfil(obj);
+		obj.setProjetoSocial(ProjetoSocial.REINTREGAR_KIDS_JAMAICA);
 		obj.setSt(StAtivo.ATIVO);
 		obj.setDataCadastro(new Date());
 	}

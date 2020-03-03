@@ -123,6 +123,24 @@ public class DBService {
 		usuarioRepository.saveAll(Arrays.asList(usu, usu2));
 		
 		
+		Usuario voluntario = new Usuario();
+		
+		voluntario.setNome("ALLAN DA CRUZ ROSA");
+		voluntario.setCpf("01110539517");
+		voluntario.setEmail("allancruzrosa@gmail.com");
+		voluntario.addPerfil(Perfil.VOLUNTARIO);
+		
+		
+		Usuario voluntario2 = new Usuario();
+		
+		voluntario2.setNome("ALLAN DA CRUZ ROSA");
+		voluntario2.setCpf("01110539517");
+		voluntario2.setEmail("allancruzrosa@gmail.com");
+		voluntario2.addPerfil(Perfil.VOLUNTARIO);
+		
+		usuarioRepository.saveAll(Arrays.asList(voluntario, voluntario2));
+		
+		
 		
 	}
 
