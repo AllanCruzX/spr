@@ -88,7 +88,7 @@ public class AlunoResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<Usuario> delete(@PathVariable Long id) {

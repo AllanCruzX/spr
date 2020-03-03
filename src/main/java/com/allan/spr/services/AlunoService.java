@@ -57,24 +57,39 @@ public class AlunoService {
 	private Integer size;
 
 	public Usuario find(Long id) {
-		
+
 		Optional<Usuario> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
 	}
+	
+	public Usuario findUsuarioEndereco(Long id) {
+
+		Optional<Usuario> obj = repo.findUsuarioJoinEndereco(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
+	}
+	
+	
+	public Endereco findEndereco(Long id) {
+		
+		Optional<Endereco> obj = enderecoRepository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Endereco.class.getName()));
+		
+	}
 
 	@Transactional
 	public Usuario insert(Usuario obj) {
-		
-			
+
 		obj.setId(null);
 		preparaSave(obj);
 		enderecoRepository.save(obj.getEndereco());
 		obj = repo.save(obj);
-		
+
 		return obj;
 	}
-	
+
 	private void preparaSave(Usuario obj) {
 		setPerfil(obj);
 		obj.setSt(StAtivo.ATIVO);
@@ -82,33 +97,31 @@ public class AlunoService {
 	}
 
 	public Usuario update(Usuario obj) {
-						
+
 		Usuario newObj = find(obj.getId());
 		updateData(newObj, obj);
 		enderecoRepository.save(newObj.getEndereco());
 		return repo.save(newObj);
 	}
-	
-	public void delete(Long id) {
-		
-			
-		Usuario newObj = find(id);
-		try {
-			repo.deleteById(newObj.getId());
-			enderecoRepository.deleteById(newObj.getEndereco().getId());
-			
 
-		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir porque há enderecos relacionados");
-		}
+	public void delete(Long id) {
+
+		// try {
+		Usuario newObj = findUsuarioEndereco(id);
+		repo.deleteById(newObj.getId());
+		enderecoRepository.deleteById(newObj.getEndereco().getId());
+
+		// } catch (DataIntegrityViolationException e) {
+		// throw new DataIntegrityException("Não é possível excluir porque há enderecos
+		// relacionados");
+		// }
 
 	}
 
 	private void updateData(Usuario newObj, Usuario obj) {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
-		
-		
+
 		newObj.setNome(obj.getNome());
 		newObj.setNomeMae((obj.getNomeMae() == null) ? null : obj.getNomeMae());
 		newObj.setNomePai((obj.getNomePai() == null) ? null : obj.getNomePai());
@@ -117,10 +130,11 @@ public class AlunoService {
 		newObj.setTelefone((obj.getTelefone() == null) ? null : obj.getTelefone());
 		newObj.setEmail((obj.getEmail() == null) ? null : obj.getEmail());
 		newObj.setPcd(obj.getPcd());
-		
-		newObj.getEndereco().setCep((obj.getEndereco().getCep() == null) ? null : obj.getEndereco().getCep() );
+
+		newObj.getEndereco().setCep((obj.getEndereco().getCep() == null) ? null : obj.getEndereco().getCep());
 		newObj.getEndereco().setBairro((obj.getEndereco().getBairro() == null) ? null : obj.getEndereco().getBairro());
-		newObj.getEndereco().setLogradouro((obj.getEndereco().getLogradouro() == null) ? null : obj.getEndereco().getLogradouro());
+		newObj.getEndereco()
+				.setLogradouro((obj.getEndereco().getLogradouro() == null) ? null : obj.getEndereco().getLogradouro());
 		newObj.getEndereco().setNumero((obj.getEndereco().getNumero() == null) ? null : obj.getEndereco().getNumero());
 
 		if (obj.getEndereco().getCidade() != null && obj.getEndereco().getCidade().getId() != null) {
@@ -129,7 +143,7 @@ public class AlunoService {
 		}
 
 	}
-	
+
 	private void setPerfil(Usuario obj) {
 		obj.addPerfil(Perfil.ALUNO);
 	}
@@ -152,29 +166,30 @@ public class AlunoService {
 		return obj;
 	}
 
-	
-	public Page<Usuario> findAllAlunos(Integer page, Integer linesPerPage, String orderBy, String direction){
+	public Page<Usuario> findAllAlunos(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-			
+
 		return repo.findAllAlunos(Perfil.ALUNO.getCod(), paginacao);
 	}
-	
-	public Page<Usuario> findByAlunosNome(Integer page, Integer linesPerPage, String orderBy, String direction, String nome ){
-		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findAllAlunosNome(Perfil.ALUNO.getCod(), paginacao , "%" + nome + "%" );
-	}
-	
-	public Page<Usuario> findByAlunosNomeResponsavel(Integer page, Integer linesPerPage, String orderBy, String direction, String nomeResponsavel ){
-		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findAllAlunosNomeResponsavel(Perfil.ALUNO.getCod(), paginacao ,"%" + nomeResponsavel + "%"  );
-	}
-	
-	public Page<Usuario> findByAlunosNomeNomeResponsavel(Integer page, Integer linesPerPage, String orderBy, String direction, String nome ,String nomeResponsavel){
-		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findAllAlunosNomeNomeResponsavel(Perfil.ALUNO.getCod(), paginacao , "%" + nome + "%" , "%" +nomeResponsavel + "%" );
-	}
-	
 
+	public Page<Usuario> findByAlunosNome(Integer page, Integer linesPerPage, String orderBy, String direction,
+			String nome) {
+		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAllAlunosNome(Perfil.ALUNO.getCod(), paginacao, "%" + nome + "%");
+	}
+
+	public Page<Usuario> findByAlunosNomeResponsavel(Integer page, Integer linesPerPage, String orderBy,
+			String direction, String nomeResponsavel) {
+		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAllAlunosNomeResponsavel(Perfil.ALUNO.getCod(), paginacao, "%" + nomeResponsavel + "%");
+	}
+
+	public Page<Usuario> findByAlunosNomeNomeResponsavel(Integer page, Integer linesPerPage, String orderBy,
+			String direction, String nome, String nomeResponsavel) {
+		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAllAlunosNomeNomeResponsavel(Perfil.ALUNO.getCod(), paginacao, "%" + nome + "%",
+				"%" + nomeResponsavel + "%");
+	}
 
 	public Usuario fromDTO(AlunoNewDTO objDto) {
 
@@ -200,13 +215,13 @@ public class AlunoService {
 			Cidade cid = findByIdCidade(objDto.getCidadeId());
 			endereco.setCidade(cid);
 		}
-		
+
 		aluno.setEndereco(endereco);
-		
+
 		return aluno;
 
 	}
-	
+
 	public Usuario fromDTO(AlunoDTO objDto) {
 
 		Usuario aluno = new Usuario();
@@ -221,25 +236,20 @@ public class AlunoService {
 		aluno.setTelefone((objDto.getTelefone() == null) ? null : objDto.getTelefone());
 		aluno.setEmail((objDto.getEmail() == null) ? null : objDto.getEmail());
 		aluno.setPcd(StSimNao.toEnum(objDto.getPcd()));
-		
-	
-			
-			endereco.setId(objDto.getEnderecoId());
-			endereco.setCep((objDto.getCep() == null) ? null : objDto.getCep());
-			endereco.setBairro((objDto.getBairro() == null) ? null : objDto.getBairro());
-			endereco.setLogradouro((objDto.getLogradouro() == null) ? null : objDto.getLogradouro());
-			endereco.setNumero((objDto.getNumero() == null) ? null : objDto.getNumero());
 
-			if (objDto.getCidadeId() != null) {
-				Cidade cid = findByIdCidade(objDto.getCidadeId());
-				endereco.setCidade(cid);
-			}
-			
-		
-	
-		
+		endereco.setId(objDto.getEnderecoId());
+		endereco.setCep((objDto.getCep() == null) ? null : objDto.getCep());
+		endereco.setBairro((objDto.getBairro() == null) ? null : objDto.getBairro());
+		endereco.setLogradouro((objDto.getLogradouro() == null) ? null : objDto.getLogradouro());
+		endereco.setNumero((objDto.getNumero() == null) ? null : objDto.getNumero());
+
+		if (objDto.getCidadeId() != null) {
+			Cidade cid = findByIdCidade(objDto.getCidadeId());
+			endereco.setCidade(cid);
+		}
+
 		aluno.setEndereco(endereco);
-		
+
 		return aluno;
 
 	}
@@ -265,12 +275,10 @@ public class AlunoService {
 
 		return s3service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 	}
-	
+
 	public List<Usuario> findAll() {
-					
+
 		return repo.findAll();
 	}
-	
-	
 
 }
