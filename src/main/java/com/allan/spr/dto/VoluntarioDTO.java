@@ -9,8 +9,9 @@ import org.hibernate.validator.constraints.Length;
 
 import com.allan.spr.domain.Usuario;
 import com.allan.spr.services.validation.AlunoUpdate;
+import com.allan.spr.services.validation.VoluntarioUpdate;
 
-@AlunoUpdate
+@VoluntarioUpdate
 public class VoluntarioDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 

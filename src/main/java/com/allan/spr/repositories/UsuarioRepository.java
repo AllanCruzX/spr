@@ -24,7 +24,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query("SELECT usu FROM Usuario usu INNER JOIN  usu.perfis usuP LEFT JOIN  usu.endereco WHERE usuP = :perfilAluno ORDER BY usu.nome")
 	public Page<Usuario> findAllAlunos(@Param("perfilAluno") Integer perfilAluno ,Pageable pageRequest ); 
 	
-
 	@Transactional(readOnly=true)
 	@Query("SELECT usu FROM Usuario usu INNER JOIN  usu.perfis usuP LEFT JOIN  usu.endereco WHERE usuP = :perfilAluno AND UPPER(TRIM(usu.nome)) LIKE UPPER(:nome)")
 	public Page<Usuario> findAllAlunosNome(@Param("perfilAluno") Integer perfilAluno ,Pageable pageRequest , @Param("nome") String  nome ); 
@@ -41,22 +40,21 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query("SELECT usu FROM Usuario usu LEFT JOIN  usu.endereco WHERE usu.id = :id ")
 	public Optional<Usuario> findUsuarioJoinEndereco(@Param("id") Long id); 
 	//Optional - evita NullPointerException e retorna o objeto null se não encontrar nada.
-	
-	
+		
 	@Transactional(readOnly=true)
 	@Query("SELECT usu FROM Usuario usu INNER JOIN  usu.perfis usuP LEFT JOIN  usu.endereco WHERE usuP = :perfilVoluntario ORDER BY usu.nome")
 	public Page<Usuario> findAllVoluntarios(@Param("perfilVoluntario") Integer perfilVoluntario ,Pageable pageRequest ); 
 	
 	@Transactional(readOnly=true)
-	@Query("SELECT usu FROM Usuario usu INNER JOIN  usu.perfis usuP LEFT JOIN  usu.endereco WHERE usuP = :perfilAluno AND UPPER(TRIM(usu.nome)) LIKE UPPER(:nome)")
+	@Query("SELECT usu FROM Usuario usu INNER JOIN  usu.perfis usuP LEFT JOIN  usu.endereco WHERE usuP = :perfilVoluntario AND UPPER(TRIM(usu.nome)) LIKE UPPER(:nome)")
 	public Page<Usuario> findAllVoluntarioNome(@Param("perfilVoluntario") Integer perfilVoluntario ,Pageable pageRequest , @Param("nome") String  nome ); 
 	
 	@Transactional(readOnly=true)
-	@Query("SELECT usu FROM Usuario usu INNER JOIN  usu.perfis usuP LEFT JOIN  usu.endereco WHERE usuP = :perfilAluno AND UPPER(TRIM(usu.cpf)) = :cpf")
+	@Query("SELECT usu FROM Usuario usu INNER JOIN  usu.perfis usuP LEFT JOIN  usu.endereco WHERE usuP = :perfilVoluntario AND UPPER(TRIM(usu.cpf)) LIKE UPPER(:cpf)")
 	public Page<Usuario> findAllVoluntarioCPF(@Param("perfilVoluntario") Integer perfilVoluntario ,Pageable pageRequest , @Param("cpf") String  cpf );
 	
 	@Transactional(readOnly=true)
-	@Query("SELECT usu FROM Usuario usu INNER JOIN  usu.perfis usuP LEFT JOIN  usu.endereco WHERE usuP = :perfilAluno AND UPPER(TRIM(usu.nome)) LIKE UPPER(:nome) AND UPPER(TRIM(usu.cpf)) = :cpf")
+	@Query("SELECT usu FROM Usuario usu INNER JOIN  usu.perfis usuP LEFT JOIN  usu.endereco WHERE usuP = :perfilVoluntario AND UPPER(TRIM(usu.nome)) LIKE UPPER(:nome) AND UPPER(TRIM(usu.cpf)) LIKE UPPER(:cpf)")
 	public Page<Usuario> findAllVoluntarioNomeCPF(@Param("perfilVoluntario") Integer perfilVoluntario ,Pageable pageRequest ,@Param("nome") String  nome ,@Param("cpf") String  cpf );
 	
 }

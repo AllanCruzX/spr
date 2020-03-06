@@ -19,6 +19,7 @@ import javax.persistence.Table;
 
 import com.allan.spr.domain.enums.Perfil;
 import com.allan.spr.domain.enums.ProjetoSocial;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "usuario")
@@ -26,7 +27,8 @@ import com.allan.spr.domain.enums.ProjetoSocial;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario extends PessoaFisica implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@JsonIgnore
 	@Column(name = "senha")
 	private String senha;
 

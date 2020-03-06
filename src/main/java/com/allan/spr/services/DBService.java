@@ -13,13 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.allan.spr.domain.Atividade;
 import com.allan.spr.domain.Cidade;
 import com.allan.spr.domain.Endereco;
 import com.allan.spr.domain.Estado;
 import com.allan.spr.domain.Usuario;
 import com.allan.spr.domain.enums.Perfil;
+import com.allan.spr.domain.enums.ProjetoSocial;
 import com.allan.spr.domain.enums.StAtivo;
 import com.allan.spr.domain.enums.StSimNao;
+import com.allan.spr.domain.enums.TipoAtividade;
+import com.allan.spr.repositories.AtividadeRepository;
 import com.allan.spr.repositories.CidadeRepository;
 import com.allan.spr.repositories.EnderecoRepository;
 import com.allan.spr.repositories.EstadoRepository;
@@ -39,6 +43,9 @@ public class DBService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private AtividadeRepository atividadeRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -128,19 +135,37 @@ public class DBService {
 		voluntario.setNome("ALLAN DA CRUZ ROSA");
 		voluntario.setCpf("01110539517");
 		voluntario.setEmail("allancruzrosa@gmail.com");
+		voluntario.setTelefone("71992587319");
 		voluntario.addPerfil(Perfil.VOLUNTARIO);
 		
 		
 		Usuario voluntario2 = new Usuario();
 		
-		voluntario2.setNome("ALLAN DA CRUZ ROSA");
-		voluntario2.setCpf("01110539517");
-		voluntario2.setEmail("allancruzrosa@gmail.com");
+		voluntario2.setNome("ABIDJAN SANTOS ROSA");
+		voluntario2.setCpf("14926209047");
+		voluntario2.setEmail("abydjan@yahoo.com.br");
+		voluntario2.setTelefone("71338205222");
 		voluntario2.addPerfil(Perfil.VOLUNTARIO);
 		
 		usuarioRepository.saveAll(Arrays.asList(voluntario, voluntario2));
 		
 		
+		Atividade atividade = new Atividade();
+		
+		atividade.setLicao("Deus é bom !");
+		atividade.setTipo(TipoAtividade.AULA);
+		atividade.setProjetoSocial(ProjetoSocial.REINTREGAR_KIDS_JAMAICA);
+		atividade.setDataCadastro(new Date());
+		
+		
+		Atividade atividade2 = new Atividade();
+		
+		atividade2.setLicao("Festa de Natal");
+		atividade2.setTipo(TipoAtividade.FESTA);
+		atividade2.setProjetoSocial(ProjetoSocial.REINTREGAR_KIDS_JAMAICA);
+		atividade2.setDataCadastro(new Date());
+		
+		atividadeRepository.saveAll(Arrays.asList(atividade , atividade2));
 		
 	}
 

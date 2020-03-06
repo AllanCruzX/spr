@@ -9,8 +9,9 @@ import org.hibernate.validator.constraints.Length;
 
 import com.allan.spr.domain.Usuario;
 import com.allan.spr.services.validation.AlunoInsert;
+import com.allan.spr.services.validation.VoluntarioInsert;
 
-@AlunoInsert
+@VoluntarioInsert
 public class VoluntarioNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -26,6 +27,9 @@ public class VoluntarioNewDTO implements Serializable {
 	private String email;
 
 	private String telefone;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String senha;
 
 	public VoluntarioNewDTO() {
 
@@ -37,6 +41,7 @@ public class VoluntarioNewDTO implements Serializable {
 		cpf = voluntario.getCpf();
 		telefone = voluntario.getTelefone() == null ? null : voluntario.getTelefone();
 		email = voluntario.getEmail();
+		senha = voluntario.getSenha();
 
 	}
 
@@ -71,5 +76,15 @@ public class VoluntarioNewDTO implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
+	
 
 }

@@ -10,8 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -61,8 +59,6 @@ public class Atividade implements Serializable {
 		this.licao = licao;
 	}
 
-
-
 	public TipoAtividade getTipo() {
 		return tipo;
 	}
@@ -78,7 +74,6 @@ public class Atividade implements Serializable {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
 
 	public ProjetoSocial getProjetoSocial() {
 		return projetoSocial;
@@ -112,6 +107,6 @@ public class Atividade implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 
 }

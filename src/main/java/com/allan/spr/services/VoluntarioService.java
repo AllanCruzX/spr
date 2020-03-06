@@ -76,14 +76,8 @@ public class VoluntarioService {
 
 	public void delete(Long id) {
 
-		// try {
 		Usuario newObj = find(id);
 		repo.deleteById(newObj.getId());
-
-		// } catch (DataIntegrityViolationException e) {
-		// throw new DataIntegrityException("Não é possível excluir porque há enderecos
-		// relacionados");
-		// }
 
 	}
 
@@ -127,13 +121,13 @@ public class VoluntarioService {
 	public Page<Usuario> findAllVoluntarioCPF(Integer page, Integer linesPerPage, String orderBy, String direction,
 			String cpf) {
 		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findAllVoluntarioCPF(Perfil.VOLUNTARIO.getCod(), paginacao, cpf);
+		return repo.findAllVoluntarioCPF(Perfil.VOLUNTARIO.getCod(), paginacao, "%" + cpf + "%");
 	}
 
 	public Page<Usuario> findAllVoluntarioNomeCPF(Integer page, Integer linesPerPage, String orderBy, String direction,
 			String nome, String cpf) {
 		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findAllVoluntarioNomeCPF(Perfil.VOLUNTARIO.getCod(), paginacao, "%" + nome + "%", cpf);
+		return repo.findAllVoluntarioNomeCPF(Perfil.VOLUNTARIO.getCod(), paginacao, "%" + nome + "%",  "%" + cpf + "%");
 	}
 
 	public Usuario fromDTO(VoluntarioNewDTO objDto) {
@@ -144,6 +138,7 @@ public class VoluntarioService {
 		voluntario.setCpf(objDto.getCpf());
 		voluntario.setTelefone((objDto.getTelefone() == null) ? null : objDto.getTelefone());
 		voluntario.setEmail(objDto.getEmail());
+		voluntario.setSenha(objDto.getSenha());
 
 		return voluntario;
 
