@@ -30,8 +30,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
-		String header = request.getHeader("Authorization");
+		//Aqui vou  recuperar o token no cabeçalho, validá-lo, e se estiver ok autentificar o usuário para o Spring. 
+				//Toda requisição Http vou precisar autenticar por que não existe mas o conceito de manter o usuario em sessão não existe usuario logado .
+		String header = request.getHeader("Authorization");//Nome do cabecalho  - Authorization
 		
 		if(header != null && header.startsWith("Bearer ")) {
 			UsernamePasswordAuthenticationToken auth = getAuthentication(header.substring(7));
@@ -45,10 +46,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
 	private UsernamePasswordAuthenticationToken getAuthentication( String token) {
 		if(jwtUtil.tokenValido(token)) {
-			
+			//valida token e retorna o usuario
 			String username = jwtUtil.getUsername(token);
-			UserDetails user = userDetailsService.loadUserByUsername(username);
-			return new UsernamePasswordAuthenticationToken(user, null , user.getAuthorities());
+			UserDetails user = userDetailsService.loadUserByUsername(username);//busca no banco de dados o usuario.
+			return new UsernamePasswordAuthenticationToken(user, null , user.getAuthorities());//autorizando usuario por perfil
 			
 		}
 		return null;

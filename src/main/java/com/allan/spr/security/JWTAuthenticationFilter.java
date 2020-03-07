@@ -34,6 +34,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
+		
+		//metodo que verifica se usuario é senha são validos.
 
 		try {
 			CredenciaisDTO creds = new ObjectMapper()
@@ -54,6 +56,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
+		
+		//Se a autenticação der certo vem para esse metodo.Que gera um token e acrescenta na resposta da requisição.
 	
 		String username = ((UserSS) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);

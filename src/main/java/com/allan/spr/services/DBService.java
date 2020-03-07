@@ -165,7 +165,18 @@ public class DBService {
 		atividade2.setProjetoSocial(ProjetoSocial.REINTREGAR_KIDS_JAMAICA);
 		atividade2.setDataCadastro(new Date());
 		
-		atividadeRepository.saveAll(Arrays.asList(atividade , atividade2));
+		
+		Atividade atividade3 = new Atividade();
+		
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+		Date data = formato.parse("09/03/2020");
+		
+		atividade3.setLicao("PASSEIO IBAM");
+		atividade3.setTipo(TipoAtividade.PASSEIO);
+		atividade3.setProjetoSocial(ProjetoSocial.REINTREGAR_KIDS_JAMAICA);
+		atividade3.setDataCadastro(data);
+		
+		atividadeRepository.saveAll(Arrays.asList(atividade , atividade2 , atividade3));
 		
 	}
 

@@ -66,6 +66,7 @@ public class AtividadeService {
 		newObj.setLicao(obj.getLicao());
 		newObj.setProjetoSocial(obj.getProjetoSocial());
 		newObj.setTipo(obj.getTipo());
+		newObj.setDataCadastro(obj.getDataCadastro());
 
 	}
 	
@@ -86,14 +87,14 @@ public class AtividadeService {
 
 	public Page<Atividade> findByAtividadesDataCadastro(Integer page, Integer linesPerPage, String orderBy,
 			String direction, Date inicio, Date fim) {
-		fim.setDate(fim.getDate() + 1);
+		//fim.setDate(fim.getDate() + 1);
 		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findByAtividadesDataCadastro(inicio, fim, paginacao);
 	}
 
 	public Page<Atividade> findByAtividadesTipoAtividadeDataCadastro(Integer page, Integer linesPerPage, String orderBy,
 			String direction, int tipo, Date inicio, Date fim) {
-		fim.setDate(fim.getDate() + 1);
+		//fim.setDate(fim.getDate() + 1);
 		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findByAtividadesTipoAtividadeDataCadastro(TipoAtividade.toEnum(tipo), inicio, fim, paginacao);
 	}
@@ -105,6 +106,7 @@ public class AtividadeService {
 		obj.setLicao(objDto.getLicao());
 		obj.setTipo(TipoAtividade.toEnum(objDto.getTipo()));
 		obj.setProjetoSocial(ProjetoSocial.toEnum(objDto.getProjetoSocial()));
+		obj.setDataCadastro(objDto.getDataCadastro());
 
 		return obj;
 
@@ -118,6 +120,7 @@ public class AtividadeService {
 		obj.setLicao(objDto.getLicao());
 		obj.setTipo(TipoAtividade.toEnum(objDto.getTipo()));
 		obj.setProjetoSocial(ProjetoSocial.toEnum(objDto.getProjetoSocial()));
+		obj.setDataCadastro(objDto.getDataCadastro());
 
 		return obj;
 

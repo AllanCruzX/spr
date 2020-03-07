@@ -1,7 +1,7 @@
 package com.allan.spr.domain.enums;
 
 public enum Perfil {
-
+	//ROLE_ - esse prefixo é egisencia do spring security
 	ADMIN(1, "ROLE_ADMIN"),
 	VOLUNTARIO(2, "ROLE_VOLUNTARIO"),
 	ALUNO(3,"ROLE_ALUNO");

@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: cursomc
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: allan.rosa
+Built-By: Allan Cruz
 Implementation-Vendor-Id: com.allan.spr
-Build-Jdk: 1.8.0_31
+Build-Jdk: 1.8.0_181
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/cursomc
 Created-By: Maven Integration for Eclipse

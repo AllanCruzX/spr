@@ -25,6 +25,7 @@ public class AuthService {
 	private Random rand = new Random();
 
 	public void sendNewPassword(String email) {
+		//implementando esqueci senha.
 
 		Usuario usuario = usuarioRepository.findByEmail(email);
 

@@ -1,13 +1,17 @@
 package com.allan.spr.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.allan.spr.domain.Atividade;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 public class AtividadeNewDTO implements Serializable {
@@ -23,6 +27,11 @@ public class AtividadeNewDTO implements Serializable {
 	@NotNull(message = "Preenchimento obrigatório")
 	private int projetoSocial;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCadastro;
+	
+	
 
 	public AtividadeNewDTO() {
 
@@ -33,6 +42,7 @@ public class AtividadeNewDTO implements Serializable {
 		licao = atividade.getLicao();
 		tipo = atividade.getTipo().getCod();
 		projetoSocial = atividade.getProjetoSocial().getCod();
+		dataCadastro = atividade.getDataCadastro();
 
 	}
 
@@ -60,7 +70,13 @@ public class AtividadeNewDTO implements Serializable {
 		this.projetoSocial = projetoSocial;
 	}
 
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
 
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 	
 
 }

@@ -68,7 +68,7 @@ public class AtividadeResource {
 	public ResponseEntity<Page<AtividadeDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0", required = false) Integer page, Integer tipo, Date inicio,Date fim,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+			@RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 
 		Page<AtividadeDTO> listDTO = null;

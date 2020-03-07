@@ -20,6 +20,7 @@ public class JWTUtil {
 	
 	
 	public String generateToken(String username) {
+		//gera token é acrescenta tempo de expirar.
 		return Jwts.builder()
 				.setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + expiration))
@@ -29,6 +30,8 @@ public class JWTUtil {
 	}
 	
 	public boolean tokenValido(String token) {
+		//Verifica se token é valido.
+		//Claims - armazena as revindicações do token.(no meu caso alegando que e o susurio e seu tempo de expiração).
 		Claims claims = getClaims(token);
 		if(claims != null) {
 			String username = claims.getSubject();
@@ -44,6 +47,7 @@ public class JWTUtil {
 	
 	
 	public String getUsername (String token) {
+		//pegar usuario aprtir do token
 		Claims claims = getClaims(token);
 		if(claims != null) {
 			return claims.getSubject();
@@ -56,6 +60,7 @@ public class JWTUtil {
 	
 
 	private Claims getClaims(String token) {
+		//Obter os Claims apartir de um token.
 		
 		try {
 			
