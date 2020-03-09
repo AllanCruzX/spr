@@ -1,6 +1,7 @@
 package com.allan.spr.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +15,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.allan.spr.domain.enums.TipoPresenca;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "usuario_presenca")
@@ -30,9 +34,6 @@ public class UsuarioPresenca implements Serializable {
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_presenca")
-	private Presenca presenca;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_atividade")
@@ -41,6 +42,12 @@ public class UsuarioPresenca implements Serializable {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "tipo")
 	private TipoPresenca tipo;
+	
+	
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+	@Column(name = "dt_cadastro")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCadastro;
 
 	public TipoPresenca getTipo() {
 		return tipo;
@@ -66,12 +73,12 @@ public class UsuarioPresenca implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Presenca getPresenca() {
-		return presenca;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setPresenca(Presenca presenca) {
-		this.presenca = presenca;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Atividade getAtividade() {
