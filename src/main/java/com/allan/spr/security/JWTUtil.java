@@ -12,6 +12,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JWTUtil {
 	
+	//JWT - JWT (JSON Web Token) é um método RCT 7519 padrão da indústria para realizar autenticação entre duas partes por meio de um token assinado que autentica uma requisição web. 
+	//Esse token é um código em Base64 que armazena objetos JSON com os dados que permitem a autenticação da requisição.
+	
 	@Value("${jwt.secret}")
 	private String secret;
 	
@@ -60,7 +63,7 @@ public class JWTUtil {
 	
 
 	private Claims getClaims(String token) {
-		//Obter os Claims apartir de um token.
+		//Obter os Claims(informações contidas) apartir de um token.
 		
 		try {
 			

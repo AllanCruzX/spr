@@ -15,6 +15,7 @@ import com.allan.spr.domain.Atividade;
 import com.allan.spr.domain.Cidade;
 import com.allan.spr.domain.Endereco;
 import com.allan.spr.domain.Estado;
+import com.allan.spr.domain.Presenca;
 import com.allan.spr.domain.Usuario;
 import com.allan.spr.domain.UsuarioPresenca;
 import com.allan.spr.domain.enums.Perfil;
@@ -27,6 +28,7 @@ import com.allan.spr.repositories.AtividadeRepository;
 import com.allan.spr.repositories.CidadeRepository;
 import com.allan.spr.repositories.EnderecoRepository;
 import com.allan.spr.repositories.EstadoRepository;
+import com.allan.spr.repositories.PresencaRepository;
 import com.allan.spr.repositories.UsuarioPresencaRepository;
 import com.allan.spr.repositories.UsuarioRepository;
 
@@ -50,6 +52,9 @@ public class DBService {
 
 	@Autowired
 	private UsuarioPresencaRepository usuarioPresencaRepository;
+	
+	@Autowired
+	private PresencaRepository presencaRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -174,19 +179,22 @@ public class DBService {
 
 		atividadeRepository.saveAll(Arrays.asList(atividade, atividade2, atividade3));
 
-		UsuarioPresenca presenca = new UsuarioPresenca();
+		UsuarioPresenca up = new UsuarioPresenca();
+		up.setTipo(TipoPresenca.PRESENTE);
+		up.setUsuario(usu);
+
+		UsuarioPresenca up2 = new UsuarioPresenca();
+		up2.setTipo(TipoPresenca.PRESENTE);
+		up2.setUsuario(usu2);
+
+		usuarioPresencaRepository.saveAll(Arrays.asList(up, up2));
+		
+		Presenca presenca = new Presenca();
 		presenca.setAtividade(atividade);
-		presenca.setTipo(TipoPresenca.PRESENTE);
-		presenca.setUsuario(usu);
 		presenca.setDataCadastro(new Date());
-
-		UsuarioPresenca presenca2 = new UsuarioPresenca();
-		presenca2.setAtividade(atividade);
-		presenca2.setTipo(TipoPresenca.PRESENTE);
-		presenca2.setUsuario(usu2);
-		presenca2.setDataCadastro(new Date());
-
-		usuarioPresencaRepository.saveAll(Arrays.asList(presenca, presenca2));
+		presenca.getListUsuarioPresenca().addAll(Arrays.asList(up, up2));
+		
+		presencaRepository.save(presenca);
 
 	}
 
