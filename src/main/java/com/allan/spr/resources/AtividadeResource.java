@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,8 @@ public class AtividadeResource {
 	@Autowired
 	private AtividadeService service;
 
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping("/{id}") 
 	@Transactional
 	public ResponseEntity<Atividade> find(@PathVariable Long id) {
@@ -38,6 +41,7 @@ public class AtividadeResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody AtividadeNewDTO objDto) {
 
@@ -48,6 +52,7 @@ public class AtividadeResource {
 
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> insert(@Valid @RequestBody AtividadeNewDTO objDto, @PathVariable Long id) {
 		Atividade obj = service.fromDTO(objDto);
@@ -57,6 +62,7 @@ public class AtividadeResource {
 	}
 
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<Atividade> delete(@PathVariable Long id) {
@@ -64,6 +70,7 @@ public class AtividadeResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<AtividadeDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0", required = false) Integer page, Integer tipo, Date inicio,Date fim,

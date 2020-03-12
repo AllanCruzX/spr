@@ -80,6 +80,8 @@ public class PresencaService {
 		newObj.setDataCadastro(obj.getDataCadastro());
 
 	}
+	
+	
 
 	public List<Presenca> findAll() {
 		return repo.findAll();

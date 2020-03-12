@@ -41,19 +41,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	};
 
-	private static final String[] PUBLIC_MATCHERS_GET = { "/alunos/** ", "/voluntarios/**" , "/atividades/**" , "/presencas/**"
+	private static final String[] PUBLIC_MATCHERS_GET = { "/atividades/**" , 
 
 	};
 	
-	private static final String[] PUBLIC_MATCHERS_PUT = { "/alunos/", "/voluntarios/**" , "/atividades/**" , "/presencas/**"
-
-	};
+	private static final String[] PUBLIC_MATCHERS_PUT = { };
 	
-	private static final String[] PUBLIC_MATCHERS_DELETE = { "/alunos/", "/voluntarios/**" , "/atividades/**" , "/presencas/**"
+	private static final String[] PUBLIC_MATCHERS_DELETE = { };
 
-	};
-
-	private static final String[] PUBLIC_MATCHERS_POST = { "/alunos/**","/voluntarios/**" ,"/atividades/**", "/presencas/**" ,"/auth/forgot/**"
+	private static final String[] PUBLIC_MATCHERS_POST = { "/auth/forgot/**"
 
 	};
 

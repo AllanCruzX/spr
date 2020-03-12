@@ -83,6 +83,13 @@ public class DBService {
 
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Usuario adm = new Usuario();
+		adm.setNome("Administrator");
+		adm.setEmail("administrator@gmail.com");
+		String senha = "123";
+		adm.setSenha(pe.encode(senha));
+		adm.addPerfil(Perfil.ADMIN);
 
 		Usuario usu = new Usuario();
 
@@ -133,7 +140,7 @@ public class DBService {
 		usu2.getEndereco().setCidade(c1);
 
 		enderecoRepository.saveAll(Arrays.asList(usu.getEndereco(), usu2.getEndereco()));
-		usuarioRepository.saveAll(Arrays.asList(usu, usu2));
+		usuarioRepository.saveAll(Arrays.asList(usu, usu2 , adm));
 
 		Usuario voluntario = new Usuario();
 

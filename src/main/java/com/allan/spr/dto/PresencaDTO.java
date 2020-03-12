@@ -1,13 +1,14 @@
 package com.allan.spr.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.allan.spr.domain.Presenca;
 import com.allan.spr.domain.UsuarioPresenca;
@@ -18,7 +19,7 @@ public class PresencaDTO implements Serializable {
 
 	private Long id;
 
-	@NotEmpty(message = "Preenchimento obrigatório")
+	@NotNull(message = "Preenchimento obrigatório")
 	private Long idAtividade;
 
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
@@ -26,7 +27,7 @@ public class PresencaDTO implements Serializable {
 	private Date dataCadastro;
 
 	@NotEmpty(message = "Preenchimento obrigatório")
-	private Set<UsuarioPresencaDTO> listUsuarioPresenca = new HashSet<UsuarioPresencaDTO>();
+	private List<UsuarioPresencaDTO> listUsuarioPresenca = new ArrayList<UsuarioPresencaDTO>();
 
 	public PresencaDTO() {
 
@@ -63,11 +64,11 @@ public class PresencaDTO implements Serializable {
 		this.idAtividade = idAtividade;
 	}
 
-	public Set<UsuarioPresencaDTO> getListUsuarioPresenca() {
+	public List<UsuarioPresencaDTO> getListUsuarioPresenca() {
 		return listUsuarioPresenca;
 	}
 
-	public void setListUsuarioPresenca(Set<UsuarioPresencaDTO> listUsuarioPresenca) {
+	public void setListUsuarioPresenca(List<UsuarioPresencaDTO> listUsuarioPresenca) {
 		this.listUsuarioPresenca = listUsuarioPresenca;
 	}
 

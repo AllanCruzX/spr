@@ -1,9 +1,9 @@
 package com.allan.spr.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,20 +28,18 @@ public class Presenca implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_atividade")
 	private Atividade atividade;
-	
-	@OneToMany(fetch = FetchType.LAZY )
-	private Set<UsuarioPresenca> listUsuarioPresenca = new HashSet<UsuarioPresenca>();
-	
+
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<UsuarioPresenca> listUsuarioPresenca = new ArrayList<UsuarioPresenca>();
 
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
 	@Column(name = "dt_cadastro")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
-
 
 	public Atividade getAtividade() {
 		return atividade;
@@ -51,11 +49,11 @@ public class Presenca implements Serializable {
 		this.atividade = atividade;
 	}
 
-	public Set<UsuarioPresenca> getListUsuarioPresenca() {
+	public List<UsuarioPresenca> getListUsuarioPresenca() {
 		return listUsuarioPresenca;
 	}
 
-	public void setListUsuarioPresenca(Set<UsuarioPresenca> listUsuarioPresenca) {
+	public void setListUsuarioPresenca(List<UsuarioPresenca> listUsuarioPresenca) {
 		this.listUsuarioPresenca = listUsuarioPresenca;
 	}
 
@@ -74,7 +72,6 @@ public class Presenca implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -100,7 +97,5 @@ public class Presenca implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
 
 }

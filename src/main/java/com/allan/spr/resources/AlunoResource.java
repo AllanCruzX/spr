@@ -52,6 +52,7 @@ public class AlunoResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST )
 	public ResponseEntity<Void> insert(@Valid @RequestBody AlunoNewDTO objDto) {
 
@@ -74,6 +75,7 @@ public class AlunoResource {
 		// cabeçalho http, chamado lo
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> insert(@Valid @RequestBody AlunoDTO objDto, @PathVariable Long id) {
 		Usuario obj = service.fromDTO(objDto);
@@ -82,13 +84,14 @@ public class AlunoResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
 	public ResponseEntity<Usuario> find(@RequestParam(value = "value") String email) {
 		Usuario obj = service.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
 	}
 
-	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<Usuario> delete(@PathVariable Long id) {
@@ -107,6 +110,7 @@ public class AlunoResource {
 	 * }
 	 */
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<AlunoDTO>> findPage(@RequestParam(value = "page", defaultValue = "0",required = false)Integer page,String nome, String nomeResponsavel, 
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
