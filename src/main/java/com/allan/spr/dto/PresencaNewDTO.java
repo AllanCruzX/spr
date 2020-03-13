@@ -23,9 +23,13 @@ public class PresencaNewDTO implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
+	
+	private int categoria;
 
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private List<UsuarioPresencaNewDTO> listUsuarioPresenca = new ArrayList<UsuarioPresencaNewDTO>();
+	
+	
 
 	public PresencaNewDTO() {
 
@@ -35,6 +39,7 @@ public class PresencaNewDTO implements Serializable {
 
 		idAtividade = presenca.getAtividade().getId();
 		dataCadastro = presenca.getDataCadastro();
+		categoria = presenca.getCategoria().getCod();
 
 		for (UsuarioPresenca usuPresenca : presenca.getListUsuarioPresenca()) {
 			UsuarioPresencaNewDTO obj = new UsuarioPresencaNewDTO();
@@ -67,6 +72,14 @@ public class PresencaNewDTO implements Serializable {
 
 	public void setListUsuarioPresenca(List<UsuarioPresencaNewDTO> listUsuarioPresenca) {
 		this.listUsuarioPresenca = listUsuarioPresenca;
+	}
+
+	public int getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(int categoria) {
+		this.categoria = categoria;
 	}
 
 }

@@ -31,7 +31,7 @@ public class PresencaResource {
 	@Autowired
 	private PresencaService service;
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN') or hasRole('VOLUNTARIO')")
 	@GetMapping("/{id}")
 	@Transactional
 	public ResponseEntity<Presenca> find(@PathVariable Long id) {
@@ -39,7 +39,7 @@ public class PresencaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN') or hasRole('VOLUNTARIO')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody PresencaNewDTO objDto) {
 
@@ -50,7 +50,7 @@ public class PresencaResource {
 
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN') or hasRole('VOLUNTARIO')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> insert(@Valid @RequestBody PresencaDTO objDto, @PathVariable Long id) {
 		Presenca obj = service.fromDTO(objDto);
@@ -59,7 +59,7 @@ public class PresencaResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN') or hasRole('VOLUNTARIO')")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<PresencaDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0", required = false) Integer page, Date data,

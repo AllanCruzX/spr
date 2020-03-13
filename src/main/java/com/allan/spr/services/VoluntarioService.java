@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +43,9 @@ public class VoluntarioService {
 
 	@Value("${img.profile.size}")
 	private Integer size;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	public Usuario find(Long id) {
 
@@ -138,7 +142,7 @@ public class VoluntarioService {
 		voluntario.setCpf(objDto.getCpf());
 		voluntario.setTelefone((objDto.getTelefone() == null) ? null : objDto.getTelefone());
 		voluntario.setEmail(objDto.getEmail());
-		voluntario.setSenha(objDto.getSenha());
+		voluntario.setSenha(pe.encode(objDto.getSenha()));
 
 		return voluntario;
 

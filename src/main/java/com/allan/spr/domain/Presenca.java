@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.allan.spr.domain.enums.CategoriaPresenca;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -40,6 +43,18 @@ public class Presenca implements Serializable {
 	@Column(name = "dt_cadastro")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
+
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "categoria")
+	private CategoriaPresenca categoria;
+
+	public CategoriaPresenca getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaPresenca categoria) {
+		this.categoria = categoria;
+	}
 
 	public Atividade getAtividade() {
 		return atividade;

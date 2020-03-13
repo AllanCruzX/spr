@@ -18,6 +18,7 @@ import com.allan.spr.domain.Estado;
 import com.allan.spr.domain.Presenca;
 import com.allan.spr.domain.Usuario;
 import com.allan.spr.domain.UsuarioPresenca;
+import com.allan.spr.domain.enums.CategoriaPresenca;
 import com.allan.spr.domain.enums.Perfil;
 import com.allan.spr.domain.enums.ProjetoSocial;
 import com.allan.spr.domain.enums.StAtivo;
@@ -200,7 +201,7 @@ public class DBService {
 		presenca.setAtividade(atividade);
 		presenca.setDataCadastro(new Date());
 		presenca.getListUsuarioPresenca().addAll(Arrays.asList(up, up2));
-		
+		presenca.setCategoria(CategoriaPresenca.ALUNO);
 		presencaRepository.save(presenca);
 
 	}

@@ -7,19 +7,15 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -52,7 +48,7 @@ public class AlunoResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN') or hasRole('VOLUNTARIO')")
 	@RequestMapping(method = RequestMethod.POST )
 	public ResponseEntity<Void> insert(@Valid @RequestBody AlunoNewDTO objDto) {
 
@@ -75,7 +71,7 @@ public class AlunoResource {
 		// cabeçalho http, chamado lo
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN') or hasRole('VOLUNTARIO')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> insert(@Valid @RequestBody AlunoDTO objDto, @PathVariable Long id) {
 		Usuario obj = service.fromDTO(objDto);
@@ -84,14 +80,14 @@ public class AlunoResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN') or hasRole('VOLUNTARIO')")
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
 	public ResponseEntity<Usuario> find(@RequestParam(value = "value") String email) {
 		Usuario obj = service.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN') or hasRole('VOLUNTARIO')")
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<Usuario> delete(@PathVariable Long id) {
@@ -110,7 +106,7 @@ public class AlunoResource {
 	 * }
 	 */
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN') or hasRole('VOLUNTARIO')")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<AlunoDTO>> findPage(@RequestParam(value = "page", defaultValue = "0",required = false)Integer page,String nome, String nomeResponsavel, 
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
