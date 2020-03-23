@@ -57,6 +57,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query("SELECT usu FROM Usuario usu INNER JOIN  usu.perfis usuP LEFT JOIN  usu.endereco WHERE usuP = :perfilVoluntario AND UPPER(TRIM(usu.nome)) LIKE UPPER(:nome) AND UPPER(TRIM(usu.cpf)) LIKE UPPER(:cpf)")
 	public Page<Usuario> findAllVoluntarioNomeCPF(@Param("perfilVoluntario") Integer perfilVoluntario ,Pageable pageRequest ,@Param("nome") String  nome ,@Param("cpf") String  cpf );
 	
+	
+	
+	
 }
 
 
